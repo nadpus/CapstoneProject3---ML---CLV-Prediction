@@ -4,17 +4,13 @@
 
 Dalam berbisnis, untuk mendapatkan customer baru bisa [sampai 25 kali](https://hbr.org/2014/10/the-value-of-keeping-the-right-customers) lebih mahal daripada mempertahankan customer lama (customer retention). Customer retention menjadi kunci dari sumber pendapatan yang stabil bagi perusahaan karena pembelian berulang dari existing customer membuat bisnis perusahaan tetap berjalan. Oleh karena itu, perusahaan perlu melihat seberapa valuable customer terhadap bisnis perusahaan. Untuk mengukur hal tersebut, terdapat sebuah metrik yang dapat digunakan yaitu metrik **Customer Lifetime Value (CLV)**.
 
-Customer Lifetime Value (CLV) adalah jumlah uang yang dikeluarkan customer untuk perusahaan sepanjang hubungan bisnis antara customer dengan perusahaan tersebut. CLV penting bagi bisnis karena dapat meningkatkan revenue perusahaan, meningkatkan customer acquisition dan customer retention, membantu perusahaan merencanakan anggaran marketingnya, dan lain-lain. Pada implementasinya, metrik CLV banyak digunakan oleh perusahaan yang melakukan repeat sales kepada customer (misal. makanan, produk rumah tangga) maupun perusahaan yang menggunakan sistem berlangganan dalam bisnisnya (misal. asuransi, perusahaan telekomunikasi).  
+Customer Lifetime Value (CLV) adalah jumlah uang yang dikeluarkan customer untuk perusahaan sepanjang hubungan bisnis antara customer dengan perusahaan tersebut. Secara sederhananya, CLV adalah prediksi atas nilai keseluruhan revenue yang bisa didapatkan dari customer tersebut. Memahami dan meningkatkan CLV di perusahaan dapat meningkatkan keuntungan perusahaan, membantu merencanakan anggaran, dan menganalisis kepuasan pelanggan.
 
-Dalam project ini, terdapat sebuah perusahaan asuransi mobil di Amerika Serikat mengalami issue dalam meningkatkan revenue perusahaan. Salah satu penyebab issuenya adalah karena pendekatan strategi marketing yang tidak tepat dimana perusahaan mengeluarkan budget yang sama untuk seluruh customer (baik new maupun existing customer), sehingga perusahaan akhirnya membayar lebih untuk low-value customer dan kehilangan high-value customer. Maka dari itu, perusahaan menggunakan metrik CLV untuk menentukan seberapa valuable customer yang dimiliki. Namun perusahaan asuransi mobil tersebut belum memiliki sistem untuk memprediksi CLV dengan cepat dan akurat sehingga penentuan strategi marketing saat ini memakan waktu lebih lama karena pengolahan data yang masih secara manual. Oleh karena itu, prediksi CLV yang lebih cepat dan akurat sangatlah penting untuk dapat mengambil strategi marketing yang lebih tepat pula.
-
-Dari permasalahan diatas, maka kita dapat mengajukan pertanyaan berupa:
-1. Bagaimana memprediksi CLV sehingga dapat meningkatkan revenue perusahaan?
-2. Fitur apa yang paling berpengaruh dalam menentukan CLV?
+Dalam project ini, terdapat sebuah perusahaan asuransi mobil di Amerika Serikat mengalami issue dalam meningkatkan revenue perusahaan. Salah satu penyebab issuenya adalah karena pendekatan strategi marketing yang tidak tepat dimana perusahaan mengeluarkan budget yang sama untuk seluruh tipe customer, sehingga perusahaan akhirnya membayar lebih untuk low-value customer dan kehilangan high-value customer. Maka dari itu, perusahaan menggunakan metrik CLV agar dapat menentukan seberapa valuable customer yang dimiliki dan strategi marketing yang akan digunakan berdasarkan CLV tersebut. Namun perusahaan asuransi mobil ini belum memiliki sistem untuk memprediksi CLV dengan cepat dan akurat sehingga penentuan strategi marketing saat ini memakan waktu lebih lama karena pengolahan data yang masih secara manual. Oleh karena itu, prediksi CLV yang lebih cepat dan akurat sangatlah penting untuk dapat mengambil strategi marketing yang lebih tepat pula.
 
 **Goals**
 
-Berdasarkan permasalahan diatas, maka tentunya akan sangat mudah apabila terdapat 'tools' bagi perusahaan asuransi mobil (khususnya divisi marketing) memprediksi CLV dengan melihat dari data demografis dan data asuransi mobil customer (tipe asuransi, jumlah polis, biaya premi, total klaim, dan lainnya) sehingga pengolahan data CLV tidak lagi secara manual dan dapat mempercepat proses pengambilan keputusan strategi marketing.
+Berdasarkan permasalahan diatas, tentunya akan sangat mudah bagi perusahaan asuransi mobil (khususnya divisi marketing) apabila terdapat 'tools' untuk memprediksi CLV dengan melihat dari data demografis dan data asuransi mobil customer (tipe asuransi, jumlah polis, biaya premi, total klaim, dan lainnya) sehingga pengolahan data CLV tidak lagi secara manual dan dapat mempercepat proses pengambilan keputusan strategi marketing.
 
 **Analytic Approach**
 
@@ -45,3 +41,19 @@ Evaluasi metrik yang akan digunakan adalah RMSE, MAE, dan MAPE, di mana RMSE ada
 | Total Claim Amount | Float | Cumulative number of claims since the beginning of the policy |
 | Income | Float | Customer's income (in dollar) |
 | Customer Lifetime Value | Float | Customer Lifetime Value (Target) |
+
+# Result
+
+Berdasarkan hasil cross-validation, didapatkan model Gradient Boost menjadi model terpilih untuk dilakukan Hyperparameter Tuning. Adapun hasil hyperparameter tuning sebagai berikut:
+
+| Condition | RMSE | MAE | MAPE |
+| --- | --- | --- | --- |
+| Before Tuning | -917.867 | -404.055 | -0.052 |
+| After Tuning (RandomizedSearch) | -916.025 | -395.742 | -0.050 |
+| After Tuning (GridSearch) | -914.730 | -391.844 | -0.050 |
+
+Performa model setelah dilakukan tuning juga meningkat saat memprediksi CLV ke test set.
+| Prediction by Gradient Boost | RMSE | MAE | MAPE |
+| --- | --- | --- | --- |
+| Before Tuning | -908.197 | -382.738 | -0.049 |
+| After Tuning | -902.842 | -373.974 | -0.048 |
