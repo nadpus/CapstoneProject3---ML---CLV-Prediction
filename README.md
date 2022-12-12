@@ -1,4 +1,4 @@
-# CapstoneProject3 - ML - CLV Prediction
+# Customer Lifetime Value Prediction
 
 **Problem Statement**
 
